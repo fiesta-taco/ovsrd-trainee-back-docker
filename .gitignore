@@ -1,8 +1,10 @@
 # package directories
 node_modules
 jspm_packages
+tmp
+dist
 # Serverless directories
 .serverless
-tmp
+
 # esbuild directories
 .esbuild
