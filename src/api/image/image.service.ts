@@ -1,6 +1,7 @@
 import s3 from '../../config/aws.config';
 import sharp from 'sharp'
-
+import dotenv from 'dotenv'
+dotenv.config({path:`.env`})
 
 
 export default{
