@@ -1,15 +1,26 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      nodejs: 14
+  pre_build:
     commands:
-      - npm install
+      - REPO_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO" 
+      - LOG_REPO="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com"
+      - echo $LOG_REPO
+      - echo $REPO_URL
+      - echo $DEV_ENV
+      - echo $AWS_REGION
+      - echo $REPO
+      - echo $AWS_ACCOUNT_ID
+
+      - aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 666398651410.dkr.ecr.eu-central-1.amazonaws.com
+
   build:
     commands:
-      - npm run build
 
+      - docker build -t app-docker-back-$DEV_ENV . #DEV_ENV main or dev
 
+      # - docker tag my-backend-app:latest $REPO_URL                       
 
+      # - docker push $REPO_URL
 
+      # - aws ecs update-service --cluster $ECS_CLUSTER_NAME --service $ECS_SERVICE_NAME --force-new-deployment
