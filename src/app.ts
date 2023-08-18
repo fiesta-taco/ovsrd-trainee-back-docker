@@ -7,7 +7,7 @@ import { router } from './api/routers'
 dotenv.config()
 const app = express()
 app.use(bodyParser.json())
-app.use(cors())
+app.use(cors({ origin: '*' })); 
 
 app.get("/", function (_, res) {
   res.send('server OK')

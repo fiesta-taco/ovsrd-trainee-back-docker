@@ -13,6 +13,7 @@ export default {
                 return res.status(400).send('No file uploaded.');
             }else{
                 const imageURL = await imageService.saveImageToS3(req.file);
+                res.header('Access-Control-Allow-Origin', '*');
                 res.json({url:imageURL});
             }
             
