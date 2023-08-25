@@ -8,16 +8,13 @@ export default {
 
     async uploadImage (req: Request, res: Response){
         try {
-            
-            if(!req.file){   
-                return res.status(400).send('No file uploaded.');
-            }else{
-                const imageURL = await imageService.saveImageToS3(req.file);
+            const {fileKey} =req.body;
+                const imageURL = await imageService.saveImageToS3(fileKey);
                 res.json({url:imageURL});
-            }
             
         } catch (err) {
             console.error(err);
+            return {err:err}
         }
     }
 }
