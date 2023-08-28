@@ -13,15 +13,15 @@ phases:
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
   build:
     commands:
-      - docker build -t app-docker-back-$DEV_ENV:testv1 . #DEV_ENV main or dev
+      - docker build -t app-docker-back-$DEV_ENV:$TAG . #DEV_ENV main or dev
 
 
-      - docker tag app-docker-back-$DEV_ENV:testv1 $REPO_URL:testv1
+      - docker tag app-docker-back-$DEV_ENV:$TAG $REPO_URL:$TAG
       #-docker tag yakov-docker-repo-dev:latest 666398651410.dkr.ecr.eu-central-1.amazonaws.com/yakov-docker-repo-dev:latest
 
 
       - OLD_IMAGE=$(aws ecr describe-images --repository-name $REPO --query 'sort_by(imageDetails,& imagePushedAt)[-1]' --output json | jq -r '.imageDigest')
       - echo $OLD_IMAGE
       - if [ -n "$OLD_IMAGE" ]; then aws ecr batch-delete-image --repository-name $REPO --image-ids imageDigest=$OLD_IMAGE; fi                       
-      - docker push $REPO_URL:testv1
+      - docker push $REPO_URL:$TAG
       #- aws ecs update-service --cluster $ECS_CLUSTER_NAME --service $ECS_SERVICE_NAME --force-new-deployment
