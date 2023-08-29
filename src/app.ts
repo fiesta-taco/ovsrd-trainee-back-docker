@@ -10,7 +10,7 @@ app.use(bodyParser.json())
 app.use(cors());
 
 app.get("/", function (_, res) {
-  res.send('server OK TESING!!!! valid new code')
+  res.send('server OK TESING!!!!')
 });
 
 app.use('/', router)
