@@ -20,5 +20,21 @@ export default {
             console.error(err);
             return { err: err }
         }
+    },
+
+    async getImage(req: Request, res: Response) {
+        try {
+            const { fileKey } = req.body;
+            if (!fileKey) {
+                return res.status(400).send('No file key.');
+            } else {
+                const imageURL = await imageService.getImageFromS3(fileKey);
+                res.json({ url: imageURL });
+            }
+
+        } catch (err) {
+            console.error(err);
+            return { err: err }
+        }
     }
 }

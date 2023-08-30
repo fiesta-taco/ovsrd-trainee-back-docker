@@ -17,3 +17,9 @@ export const putObjectParam = {
   ContentType: 'image/*',
   Expires: 120,
 };
+
+export const getObjectParam = {
+  Bucket: `${process.env.AWSBucket}`,
+  Key: 'key',
+  Expires: 60*60,
+};
