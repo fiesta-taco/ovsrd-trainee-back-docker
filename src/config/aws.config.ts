@@ -14,7 +14,7 @@ export default s3;
 export const putObjectParam = {
   Bucket: `${process.env.AWSBucket}`,
   Key: 'key',
-  ContentType: 'image/*',
+  ContentType: 'imageeeeeeee/*',
   Expires: 120,
 };
 
